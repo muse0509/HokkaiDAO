@@ -159,8 +159,8 @@ export function InterestForm({
 
       <div className="relative mx-auto max-w-3xl px-6 sm:px-10">
         <SectionHeading
-          index="08"
           label="Interest list"
+          sub="open now"
           title={
             <>
               Join the{" "}

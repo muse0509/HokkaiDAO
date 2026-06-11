@@ -9,7 +9,7 @@ export function Concept() {
       <div aria-hidden="true" className="map-grid-fine absolute inset-0 opacity-60" />
 
       <div className="relative mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionHeading index="01" label="Concept" title="A working hackathon, not a conference." />
+        <SectionHeading label="Concept" sub="what this is" title="A working hackathon, not a conference." />
 
         <div className="mt-14 grid gap-12 md:grid-cols-[3fr_2fr] md:gap-20">
           <Reveal delay={0.1}>

@@ -3,11 +3,18 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Lightweight canvas snowfall. Respects prefers-reduced-motion (renders
- * nothing), pauses when the tab is hidden, and caps particle count by
- * viewport size so mobile stays cheap.
+ * Canvas snowfall with three depth bands: far flakes are small, dim, and
+ * slow; near flakes are larger, brighter, faster, and react more to wind.
+ * Respects prefers-reduced-motion (renders nothing), pauses when the tab is
+ * hidden, and caps particle count by viewport size so mobile stays cheap.
  */
-export function Snowfall({ className = "" }: { className?: string }) {
+export function Snowfall({
+  className = "",
+  density = 1,
+}: {
+  className?: string;
+  density?: number;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -23,7 +30,33 @@ export function Snowfall({ className = "" }: { className?: string }) {
     let raf = 0;
     let width = 0;
     let height = 0;
-    let flakes: { x: number; y: number; r: number; vy: number; vx: number; o: number }[] = [];
+    let wind = 0;
+    let windTarget = 0;
+    let lastWindShift = 0;
+
+    interface Flake {
+      x: number;
+      y: number;
+      depth: number; // 0 far .. 1 near
+      r: number;
+      vy: number;
+      o: number;
+      sway: number;
+    }
+    let flakes: Flake[] = [];
+
+    const makeFlake = (y?: number): Flake => {
+      const depth = Math.random();
+      return {
+        x: Math.random() * width,
+        y: y ?? Math.random() * height,
+        depth,
+        r: 0.5 + depth * 2.2,
+        vy: 0.2 + depth * 0.85,
+        o: 0.18 + depth * 0.55,
+        sway: Math.random() * Math.PI * 2,
+      };
+    };
 
     const resize = () => {
       const parent = canvas.parentElement;
@@ -37,31 +70,31 @@ export function Snowfall({ className = "" }: { className?: string }) {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.min(Math.floor((width * height) / 22000), 90);
-      flakes = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: 0.6 + Math.random() * 1.7,
-        vy: 0.25 + Math.random() * 0.6,
-        vx: -0.15 + Math.random() * 0.3,
-        o: 0.25 + Math.random() * 0.5,
-      }));
+      const count = Math.min(Math.floor((width * height) / 18000) * density, 130);
+      flakes = Array.from({ length: count }, () => makeFlake());
     };
 
-    const tick = () => {
+    const tick = (t: number) => {
+      // Wind shifts direction every few seconds, eased toward a target.
+      if (t - lastWindShift > 5000) {
+        windTarget = (Math.random() - 0.5) * 0.7;
+        lastWindShift = t;
+      }
+      wind += (windTarget - wind) * 0.002;
+
       ctx.clearRect(0, 0, width, height);
-      for (const flake of flakes) {
-        flake.y += flake.vy;
-        flake.x += flake.vx + Math.sin(flake.y * 0.01) * 0.15;
-        if (flake.y > height + 4) {
-          flake.y = -4;
-          flake.x = Math.random() * width;
+      for (const f of flakes) {
+        f.sway += 0.008 + f.depth * 0.01;
+        f.y += f.vy;
+        f.x += wind * (0.3 + f.depth) + Math.sin(f.sway) * (0.1 + f.depth * 0.25);
+        if (f.y > height + 4) {
+          Object.assign(f, makeFlake(-4));
         }
-        if (flake.x > width + 4) flake.x = -4;
-        if (flake.x < -4) flake.x = width + 4;
+        if (f.x > width + 6) f.x = -6;
+        if (f.x < -6) f.x = width + 6;
         ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(222, 236, 248, ${flake.o})`;
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(222, 236, 248, ${f.o})`;
         ctx.fill();
       }
       raf = requestAnimationFrame(tick);
@@ -82,7 +115,7 @@ export function Snowfall({ className = "" }: { className?: string }) {
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [density]);
 
   return (
     <canvas

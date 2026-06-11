@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionViewTracker } from "@/components/SectionViewTracker";
+import { TiltCard } from "@/components/motion/TiltCard";
 
 const PILLARS = [
   {
@@ -41,7 +42,10 @@ export function Sponsors() {
       <div aria-hidden="true" className="map-grid absolute inset-0 opacity-50" />
 
       <div className="relative mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionHeading index="04" label="Why sponsors care" title="The product is access, not logo placement." />
+        <SectionHeading
+          label="Why sponsors care"
+          title="The product is access, not logo placement."
+        />
 
         <div className="mt-16 grid gap-10 md:grid-cols-3">
           {PILLARS.map((pillar, i) => (
@@ -57,10 +61,12 @@ export function Sponsors() {
         {/* Ownable moments */}
         <div className="mt-28">
           <Reveal>
-            <p className="mono-label flex items-center gap-3">
-              <span className="text-gold">05</span>
-              <span aria-hidden="true" className="h-px w-8 bg-ice-500/30" />
+            <p className="mono-label">
               Ownable moments
+              <span aria-hidden="true" className="mx-2 text-ice-500/40">
+                /
+              </span>
+              what you can put your name on
             </p>
             <h3 className="mt-5 max-w-2xl text-2xl font-semibold tracking-tight text-ice-100 sm:text-3xl">
               Own a moment builders remember —{" "}
@@ -68,25 +74,27 @@ export function Sponsors() {
             </h3>
           </Reveal>
 
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-lg border hairline bg-ice-500/10 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {MOMENTS.map(([name, note], i) => (
               <motion.li
                 key={name}
-                initial={{ opacity: 0, y: reduced ? 0 : 16 }}
+                initial={{ opacity: 0, y: reduced ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{
-                  duration: reduced ? 0.2 : 0.5,
+                  duration: reduced ? 0.2 : 0.55,
                   delay: reduced ? 0 : (i % 3) * 0.08,
+                  ease: [0.21, 0.6, 0.35, 1],
                 }}
-                className="group flex items-baseline justify-between gap-4 bg-night-900 px-6 py-5 transition-colors duration-200 hover:bg-night-800"
               >
-                <span className="font-medium text-ice-200 transition-colors group-hover:text-ice-100">
-                  {name}
-                </span>
-                <span className="mono-label text-right normal-case tracking-normal text-ice-500 transition-colors group-hover:text-cyan-soft">
-                  {note}
-                </span>
+                <TiltCard className="glass group h-full rounded-lg px-6 py-6">
+                  <span className="block font-medium text-ice-200 transition-colors group-hover:text-ice-100">
+                    {name}
+                  </span>
+                  <span className="mono-label mt-2 block normal-case tracking-normal text-ice-500 transition-colors group-hover:text-cyan-soft">
+                    {note}
+                  </span>
+                </TiltCard>
               </motion.li>
             ))}
           </ul>

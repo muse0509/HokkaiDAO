@@ -69,7 +69,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
-      <body className="antialiased">
+      <body className="grain antialiased">
         {children}
         <AnalyticsBootstrap />
       </body>

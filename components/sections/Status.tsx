@@ -14,8 +14,8 @@ export function Status() {
     <section id="status" className="relative border-t hairline bg-night-950 py-28 sm:py-36">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <SectionHeading
-          index="07"
           label="Current status"
+          sub="updated honestly"
           title={
             <>
               Where things stand,{" "}

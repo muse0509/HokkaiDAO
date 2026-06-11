@@ -33,12 +33,12 @@ export function Participants() {
     <section id="participants" className="relative border-t hairline bg-night-900 py-28 sm:py-36">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <SectionHeading
-          index="06"
           label="For participants"
+          sub="why builders apply"
           title={
             <>
-              Why builders{" "}
-              <span className="serif-accent text-cyan-soft">apply.</span>
+              Two weeks that{" "}
+              <span className="serif-accent text-cyan-soft">compound.</span>
             </>
           }
         />
@@ -47,8 +47,8 @@ export function Participants() {
           {REASONS.map((reason, i) => (
             <Reveal key={reason.title} delay={(i % 3) * 0.1}>
               <div className="flex gap-4">
-                <span className="mono-label mt-1 shrink-0 text-gold">
-                  {String(i + 1).padStart(2, "0")}
+                <span aria-hidden="true" className="mt-0.5 shrink-0 text-gold/70">
+                  ✦
                 </span>
                 <div>
                   <h3 className="font-semibold text-ice-100">{reason.title}</h3>
