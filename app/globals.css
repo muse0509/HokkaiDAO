@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* HokkaiDAO temporary identity: dark navy, ice blue, subtle cyan,
+     muted snow white, tiny gold accents. */
+  --color-night-950: #04080f;
+  --color-night-900: #060d1a;
+  --color-night-800: #0a1426;
+  --color-night-700: #0e1c34;
+  --color-night-600: #142643;
+  --color-ice-100: #eef4fb;
+  --color-ice-200: #d7e6f4;
+  --color-ice-300: #b6d2ea;
+  --color-ice-400: #8db7dd;
+  --color-ice-500: #6b9cc9;
+  --color-cyan-soft: #7fd8e8;
+  --color-cyan-dim: #3e7f96;
+  --color-gold: #c9a35c;
+  --color-gold-dim: #8a7344;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-night-950);
+  color: var(--color-ice-200);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(127, 216, 232, 0.25);
+  color: var(--color-ice-100);
+}
+
+/* --- shared motifs ------------------------------------------------------ */
+
+/* Faint map grid used behind sections. */
+.map-grid {
+  background-image:
+    linear-gradient(rgba(141, 183, 221, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(141, 183, 221, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.map-grid-fine {
+  background-image:
+    linear-gradient(rgba(141, 183, 221, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(141, 183, 221, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Mono caption used for section labels and metadata rows. */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ice-500);
+}
+
+/* Hairline borders that read as "ice". */
+.hairline {
+  border-color: rgba(141, 183, 221, 0.14);
+}
+
+/* Editorial serif accent (Instrument Serif italic). */
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* --- focus & accessibility --------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan-soft);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- form controls ------------------------------------------------------ */
+
+.field-input {
+  width: 100%;
+  background: rgba(10, 20, 38, 0.6);
+  border: 1px solid rgba(141, 183, 221, 0.16);
+  border-radius: 0.375rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--color-ice-100);
+  transition: border-color 180ms ease, background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.field-input::placeholder {
+  color: rgba(107, 156, 201, 0.55);
+}
+
+.field-input:hover {
+  border-color: rgba(141, 183, 221, 0.3);
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: rgba(127, 216, 232, 0.6);
+  background: rgba(14, 28, 52, 0.8);
+  box-shadow: 0 0 0 3px rgba(127, 216, 232, 0.12);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: rgba(225, 110, 110, 0.6);
+}
+
+/* --- subtle ambient animations (disabled under reduced motion) ---------- */
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translateX(-4%) scaleY(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(4%) scaleY(1.08);
+    opacity: 0.8;
+  }
+}
+
+.aurora {
+  animation: aurora-drift 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .pulse-dot {
+    animation: none;
+  }
+}
