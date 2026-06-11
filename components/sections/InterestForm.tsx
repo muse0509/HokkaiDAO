@@ -308,7 +308,7 @@ export function InterestForm({
                 </Field>
 
                 <details className="group rounded-lg border hairline bg-night-800/40 open:bg-night-800/60">
-                  <summary className="cursor-pointer select-none px-5 py-4 text-sm text-ice-300 transition-colors hover:text-ice-100">
+                  <summary className="cursor-pointer select-none list-none px-5 py-4 text-sm text-ice-300 transition-colors hover:text-ice-100 [&::-webkit-details-marker]:hidden">
                     Optional details — org, links, referral
                     <span className="ml-2 text-ice-500 transition-transform duration-200 group-open:hidden">+</span>
                     <span className="ml-2 hidden text-ice-500 group-open:inline">−</span>

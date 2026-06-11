@@ -29,12 +29,14 @@ export function Status() {
             {STATUS_ITEMS.map((item) => (
               <li
                 key={item.label}
-                className="grid grid-cols-[7rem_1fr_auto] items-baseline gap-4 py-5 sm:grid-cols-[10rem_1fr_auto]"
+                className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 py-5 sm:grid-cols-[10rem_1fr_auto] sm:items-baseline"
               >
                 <span className="mono-label">{item.label}</span>
-                <span className="text-ice-200">{item.value}</span>
+                <span className="col-span-2 text-ice-200 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+                  {item.value}
+                </span>
                 <span
-                  className={`mono-label flex items-center gap-2 ${
+                  className={`mono-label col-start-2 row-start-1 flex items-center gap-2 justify-self-end sm:col-start-3 ${
                     item.state === "live" ? "text-cyan-soft" : "text-ice-500"
                   }`}
                 >
