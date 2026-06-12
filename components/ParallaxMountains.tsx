@@ -19,7 +19,7 @@ import { useEffect, type RefObject } from "react";
  */
 
 const RIDGES = [
-  // far — lightest, slowest
+  // far, lightest, slowest
   {
     points:
       "0,200 140,120 260,170 420,60 560,150 720,90 880,160 1040,80 1200,150 1320,110 1440,160 1440,320 0,320",
@@ -34,7 +34,7 @@ const RIDGES = [
     mouse: 14,
     drift: 0.24,
   },
-  // near — darkest, fastest
+  // near, darkest, fastest
   {
     points:
       "0,320 100,240 240,295 420,190 600,300 780,215 960,295 1140,205 1320,285 1440,240 1440,320 0,320",

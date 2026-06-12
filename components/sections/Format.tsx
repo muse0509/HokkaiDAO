@@ -12,7 +12,7 @@ import { Reveal } from "@/components/Reveal";
 
 /**
  * The signature moment of the page: the two weeks play out as you scroll.
- * A sticky viewport scrubs from D01 to D14 — Work, then the Powder weekend,
+ * A sticky viewport scrubs from D01 to D14, Work, then the Powder weekend,
  * then the run-up to Demo Day. Under reduced motion (or no JS) it renders
  * as a static three-phase layout instead.
  */
@@ -32,7 +32,7 @@ const PHASES = [
     accent: "text-ice-300",
     bar: "bg-ice-300",
     detail: "Ski weekends, local Hokkaido experiences, informal bonding.",
-    note: "The weekend the relationships form — on chairlifts, not lanyards.",
+    note: "The weekend the relationships form, on chairlifts, not lanyards.",
   },
   {
     word: "Demo",
@@ -60,7 +60,7 @@ function PhasePanel({
       aria-hidden={!active}
     >
       <p className={`mono-label ${phase.accent}`}>{phase.days}</p>
-      <h3 className="mt-3 text-6xl font-semibold tracking-tight text-ice-100 sm:text-8xl">
+      <h3 className="mt-3 text-6xl text-ice-100 sm:text-8xl">
         {phase.word}
         <span className={phase.accent}>.</span>
       </h3>
@@ -94,7 +94,7 @@ function StickyTimeline() {
             The format <span aria-hidden="true" className="mx-2 text-ice-500/40">/</span>{" "}
             fourteen days
           </p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ice-100 sm:text-4xl">
+          <h2 className="mt-4 text-3xl text-ice-100 sm:text-4xl">
             Work. Powder.{" "}
             <span className="serif-accent text-gold">Demo.</span>
           </h2>
@@ -103,7 +103,7 @@ function StickyTimeline() {
             {/* day counter */}
             <div className="select-none">
               <span className="mono-label block">Day</span>
-              <span className="font-mono text-[clamp(5rem,14vw,11rem)] font-bold leading-none tracking-tight text-ice-100/90 tabular-nums">
+              <span className="font-mono text-[clamp(5rem,14vw,11rem)] leading-none text-ice-100/90 tabular-nums">
                 {String(day).padStart(2, "0")}
               </span>
               <span className="mono-label block text-ice-500">of 14</span>
@@ -163,7 +163,7 @@ function StaticPhases() {
           The format <span aria-hidden="true" className="mx-2 text-ice-500/40">/</span>{" "}
           fourteen days
         </p>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ice-100 sm:text-5xl">
+        <h2 className="mt-4 text-3xl text-ice-100 sm:text-5xl">
           Work. Powder. <span className="serif-accent text-gold">Demo.</span>
         </h2>
       </Reveal>
@@ -171,7 +171,7 @@ function StaticPhases() {
         {PHASES.map((phase) => (
           <article key={phase.word} className="bg-night-900 p-8 sm:p-10">
             <p className={`mono-label ${phase.accent}`}>{phase.days}</p>
-            <h3 className="mt-2 text-3xl font-semibold tracking-tight text-ice-100">
+            <h3 className="mt-2 text-3xl text-ice-100">
               {phase.word}
             </h3>
             <p className="mt-4 leading-relaxed text-ice-400">{phase.detail}</p>

@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { getConsent, track } from "@/lib/analytics";
-import { INTEREST_TYPES, ROLES } from "@/lib/validation";
+import { getConsent, readAttributionCookie, track } from "@/lib/analytics";
+import { INTEREST_TYPES, ROLES, interestFormSchema } from "@/lib/validation";
+import { GOOGLE_FORM_CONFIGURED, submitToGoogleForm } from "@/lib/google-form";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionViewTracker } from "@/components/SectionViewTracker";
 import { Reveal } from "@/components/Reveal";
@@ -39,7 +40,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="mb-1.5 block text-sm font-medium text-ice-200">
+      <label htmlFor={name} className="mb-1.5 block text-sm text-ice-200">
         {label}
         {required ? (
           <span className="ml-1 text-gold" aria-hidden="true">
@@ -100,7 +101,7 @@ export function InterestForm({
     const fd = new FormData(e.currentTarget);
     const text = (key: string) => (fd.get(key) as string | null)?.toString() ?? "";
 
-    const payload = {
+    const raw = {
       name: text("name"),
       email: text("email"),
       x_handle: text("x_handle"),
@@ -119,27 +120,51 @@ export function InterestForm({
       consent_analytics: getConsent() === "granted",
     };
 
-    try {
-      const res = await fetch("/api/interest", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.ok) {
-        setStatus("success");
-        track("interest_form_submitted", { interest_type: interestTypes });
-        return;
+    // Validate in the browser, there's no server to fall back on.
+    const parsed = interestFormSchema.safeParse(raw);
+    if (!parsed.success) {
+      const fieldErrors: FieldErrors = {};
+      for (const issue of parsed.error.issues) {
+        const field = String(issue.path[0] ?? "form");
+        if (!fieldErrors[field]) fieldErrors[field] = issue.message;
       }
-
       setStatus("error");
-      setErrors(data.fieldErrors ?? {});
-      setGlobalError(data.error ?? "Something went wrong. Please try again.");
-      track("interest_form_failed", { status: res.status });
+      setErrors(fieldErrors);
+      setGlobalError("Please fix the highlighted fields.");
+      track("interest_form_failed", { status: "validation" });
+      return;
+    }
+
+    // Honeypot filled -> pretend success so bots don't adapt; submit nothing.
+    if (parsed.data.company_website) {
+      setStatus("success");
+      return;
+    }
+
+    if (!GOOGLE_FORM_CONFIGURED) {
+      setStatus("error");
+      setGlobalError(
+        "The form isn't connected yet. Please reach out via the contact links below.",
+      );
+      track("interest_form_failed", { status: "unconfigured" });
+      return;
+    }
+
+    const { company_website: _honeypot, consent_analytics: _consent, ...fields } =
+      parsed.data;
+    void _honeypot;
+    void _consent;
+
+    try {
+      await submitToGoogleForm({
+        ...fields,
+        attribution: readAttributionCookie(),
+      });
+      setStatus("success");
+      track("interest_form_submitted", { interest_type: interestTypes });
     } catch {
       setStatus("error");
-      setGlobalError("Network error — please check your connection and try again.");
+      setGlobalError("Network error, please check your connection and try again.");
       track("interest_form_failed", { status: "network" });
     }
   }
@@ -172,7 +197,7 @@ export function InterestForm({
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-xl text-ice-300">
             Tell us who you are and why you want to be in the room. This is an
-            interest form, not final acceptance — HokkaiDAO is application-only
+            interest form, not final acceptance, HokkaiDAO is application-only
             and curated.
           </p>
         </Reveal>
@@ -206,13 +231,13 @@ export function InterestForm({
                 className="mt-12 rounded-lg border border-cyan-soft/30 bg-night-800/70 p-10 text-center"
               >
                 <p className="mono-label text-cyan-soft">Received</p>
-                <h3 className="mt-4 text-2xl font-semibold text-ice-100">
+                <h3 className="mt-4 text-2xl text-ice-100">
                   You&apos;re on the list.
                 </h3>
                 <p className="mx-auto mt-4 max-w-md text-ice-300">
                   Thanks for raising your hand. We&apos;ll reach out as
                   applications and details open up. Joining the interest list
-                  does not guarantee acceptance — every seat is curated.
+                  does not guarantee acceptance, every seat is curated.
                 </p>
               </motion.div>
             ) : (
@@ -225,7 +250,7 @@ export function InterestForm({
                 exit={{ opacity: 0 }}
                 className="mt-12 space-y-10"
               >
-                {/* Honeypot — hidden from humans, baited for bots. */}
+                {/* Honeypot, hidden from humans, baited for bots. */}
                 <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
                   <label htmlFor="company_website">Company website</label>
                   <input id="company_website" name="company_website" type="text" tabIndex={-1} autoComplete="off" />
@@ -309,7 +334,7 @@ export function InterestForm({
 
                 <details className="group rounded-lg border hairline bg-night-800/40 open:bg-night-800/60">
                   <summary className="cursor-pointer select-none list-none px-5 py-4 text-sm text-ice-300 transition-colors hover:text-ice-100 [&::-webkit-details-marker]:hidden">
-                    Optional details — org, links, referral
+                    Optional details, org, links, referral
                     <span className="ml-2 text-ice-500 transition-transform duration-200 group-open:hidden">+</span>
                     <span className="ml-2 hidden text-ice-500 group-open:inline">−</span>
                   </summary>
@@ -364,12 +389,12 @@ export function InterestForm({
                     type="submit"
                     disabled={status === "submitting"}
                     whileTap={reduced ? undefined : { scale: 0.98 }}
-                    className="inline-flex items-center justify-center gap-2 rounded-md bg-ice-100 px-8 py-3.5 text-sm font-semibold text-night-900 transition duration-200 hover:bg-white hover:shadow-[0_0_32px_rgba(127,216,232,0.25)] disabled:cursor-wait disabled:opacity-60"
+                    className="inline-flex items-center justify-center gap-2 rounded-md bg-ice-100 px-8 py-3.5 text-sm text-night-900 transition duration-200 hover:bg-white hover:shadow-[0_0_32px_rgba(127,216,232,0.25)] disabled:cursor-wait disabled:opacity-60"
                   >
                     {status === "submitting" ? "Submitting…" : "Apply interest"}
                   </motion.button>
                   <p className="text-xs text-ice-500">
-                    Interest only — applications and curation come later.
+                    Interest only, applications and curation come later.
                   </p>
                 </div>
               </motion.form>

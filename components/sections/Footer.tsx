@@ -13,8 +13,10 @@ export function Footer({
     <footer className="border-t hairline bg-night-950 py-12">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 sm:px-10 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-lg font-semibold tracking-tight text-ice-100">HokkaiDAO</p>
-          <p className="mono-label mt-2">Sapporo, Japan · March 2027 · Application-only</p>
+          <p className="text-lg text-ice-100">HokkaiDAO</p>
+          <p className="mono-label mt-2">
+            Sapporo, Japan / March 2027 / Application-only
+          </p>
         </div>
 
         <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm">

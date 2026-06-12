@@ -130,3 +130,32 @@ export function buildAttribution(opts: {
   }
   return next;
 }
+
+/**
+ * Client-side attribution capture. On a fully static site there is no server
+ * middleware, so the browser maintains the first-party `hkd_attr` cookie:
+ * read the current value, merge this visit, write it back (90 days, readable
+ * by JS so the form can attach it). No-op outside the browser, and never
+ * throws into page load.
+ */
+export function captureAttributionClient(): Attribution | null {
+  if (typeof document === "undefined") return null;
+  try {
+    const match = document.cookie.match(/(?:^|;\s*)hkd_attr=([^;]+)/);
+    const existing = parseAttributionCookie(match?.[1]);
+    const next = buildAttribution({
+      existing,
+      url: new URL(window.location.href),
+      referrer: document.referrer || null,
+      defaultUtmSource: process.env.NEXT_PUBLIC_DEFAULT_UTM_SOURCE,
+    });
+    if (next) {
+      const value = encodeURIComponent(serializeAttributionCookie(next));
+      const secure = window.location.protocol === "https:" ? "; secure" : "";
+      document.cookie = `${ATTRIBUTION_COOKIE}=${value}; path=/; max-age=${ATTRIBUTION_MAX_AGE}; samesite=lax${secure}`;
+    }
+    return next ?? existing;
+  } catch {
+    return null;
+  }
+}

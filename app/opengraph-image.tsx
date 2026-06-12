@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+// Rendered once at build time for the static export.
+export const dynamic = "force-static";
 export const alt =
-  "HokkaiDAO — Asia's first Web3 winter builder retreat. Sapporo, Japan, March 2027.";
+  "HokkaiDAO, Asia's first Web3 winter builder retreat. Sapporo, Japan, March 2027.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -20,7 +21,7 @@ export default function OpenGraphImage() {
           background:
             "linear-gradient(160deg, #060d1a 0%, #04080f 55%, #0a1a2e 100%)",
           color: "#eef4fb",
-          fontFamily: "sans-serif",
+          fontFamily: "Lora, 'Times New Roman', Times, serif",
           position: "relative",
         }}
       >
@@ -45,7 +46,6 @@ export default function OpenGraphImage() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 22,
-            letterSpacing: 6,
             color: "#6b9cc9",
           }}
         >
@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
           <span>MARCH 2027</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: -2 }}>
+          <div style={{ fontSize: 96, fontWeight: 400 }}>
             HokkaiDAO
           </div>
           <div style={{ fontSize: 36, color: "#b6d2ea" }}>
@@ -78,7 +78,6 @@ export default function OpenGraphImage() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 22,
-            letterSpacing: 4,
             color: "#6b9cc9",
           }}
         >

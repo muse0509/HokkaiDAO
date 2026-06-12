@@ -53,7 +53,7 @@ export function Status() {
         <Reveal delay={0.2}>
           <p className="mt-8 max-w-xl text-sm text-ice-500">
             We&apos;d rather under-promise. Nothing above is final until it&apos;s
-            confirmed — and when it is, you&apos;ll hear it here first.
+            confirmed, and when it is, you&apos;ll hear it here first.
           </p>
         </Reveal>
       </div>

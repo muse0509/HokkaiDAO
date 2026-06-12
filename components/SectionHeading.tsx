@@ -24,7 +24,7 @@ export function SectionHeading({
           </>
         )}
       </p>
-      <h2 className="mt-5 max-w-2xl text-3xl font-semibold tracking-tight text-ice-100 sm:text-4xl md:text-5xl">
+      <h2 className="mt-5 max-w-2xl text-3xl text-ice-100 sm:text-4xl md:text-5xl">
         {title}
       </h2>
     </Reveal>

@@ -1,5 +1,6 @@
 import { siteConfig, xProfileUrl } from "@/lib/site";
 import { Hero } from "@/components/sections/Hero";
+import { ScrollNav } from "@/components/ScrollNav";
 import { Concept } from "@/components/sections/Concept";
 import { Format } from "@/components/sections/Format";
 import { Room } from "@/components/sections/Room";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <ScrollNav />
       <Concept />
       <Format />
       <Room />

@@ -17,7 +17,7 @@ export function Concept() {
               Inspired by the spirit of{" "}
               <span className="text-ice-100">mtnDAO</span>, HokkaiDAO brings
               builders together in Sapporo for two weeks of focused work,
-              shared meals, mountain weekends, and real project launches — all
+              shared meals, mountain weekends, and real project launches, all
               inside the Solana ecosystem.
             </p>
             <p className="mt-8 text-2xl leading-snug text-ice-100 sm:text-3xl">

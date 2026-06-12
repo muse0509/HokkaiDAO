@@ -59,7 +59,7 @@ function CountUp({
     <div className="border-l hairline pl-5">
       <span
         ref={ref}
-        className="whitespace-nowrap font-mono text-3xl font-bold text-ice-100 tabular-nums sm:text-4xl lg:text-5xl"
+        className="whitespace-nowrap font-mono text-3xl text-ice-100 tabular-nums sm:text-4xl lg:text-5xl"
       >
         {prefix}
         {shown}
@@ -98,11 +98,11 @@ export function Room() {
             <p className="text-lg leading-relaxed text-ice-300">
               Every seat in the room is application-only. We curate for people
               who build, fund, design, and write the Solana ecosystem into
-              existence — and who want two weeks of real proximity to do it.
+              existence, and who want two weeks of real proximity to do it.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="flex flex-col gap-7 sm:gap-8">
               {STATS.map((stat) => (
                 <CountUp key={stat.label} {...stat} />
               ))}

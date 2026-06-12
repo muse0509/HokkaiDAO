@@ -62,7 +62,7 @@ export const interestFormSchema = z.object({
     .array(z.enum(INTEREST_TYPES))
     .min(1, "Select at least one option"),
   reason: sanitized(2000).pipe(
-    z.string().min(20, "Tell us a little more — at least 20 characters"),
+    z.string().min(20, "Tell us a little more, at least 20 characters"),
   ),
   organization_or_project: optionalSanitized(200),
   location: optionalSanitized(120),
@@ -72,7 +72,7 @@ export const interestFormSchema = z.object({
   has_attended_mtndao_or_similar: z.boolean().optional(),
   referral_source: optionalSanitized(300),
   notes: optionalSanitized(2000),
-  // Honeypot — humans never see or fill this field. Validation accepts any
+  // Honeypot, humans never see or fill this field. Validation accepts any
   // value; the route silently discards submissions where it's non-empty.
   company_website: z.string().max(500).optional(),
   consent_analytics: z.boolean().optional(),

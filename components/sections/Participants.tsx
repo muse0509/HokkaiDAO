@@ -51,7 +51,7 @@ export function Participants() {
                   ✦
                 </span>
                 <div>
-                  <h3 className="font-semibold text-ice-100">{reason.title}</h3>
+                  <h3 className="text-ice-100">{reason.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ice-400">{reason.body}</p>
                 </div>
               </div>

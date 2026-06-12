@@ -124,7 +124,7 @@ export function track(event: TrackEvent, props: Record<string, unknown> = {}) {
   }
 }
 
-/** Read the attribution cookie on the client (set server-side by proxy.ts). */
+/** Read the attribution cookie on the client (maintained by captureAttributionClient). */
 export function readAttributionCookie(): Record<string, string> | null {
   if (typeof document === "undefined") return null;
   const match = document.cookie.match(/(?:^|;\s*)hkd_attr=([^;]+)/);

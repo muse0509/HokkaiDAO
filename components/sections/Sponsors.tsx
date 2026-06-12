@@ -13,7 +13,7 @@ const PILLARS = [
   },
   {
     title: "Backing",
-    body: "Visible support for a young builder community, at the moment it forms — not after it's already priced in.",
+    body: "Visible support for a young builder community, at the moment it forms, not after it's already priced in.",
   },
   {
     title: "Distinction",
@@ -51,7 +51,7 @@ export function Sponsors() {
           {PILLARS.map((pillar, i) => (
             <Reveal key={pillar.title} delay={i * 0.12}>
               <div className="border-t-2 border-gold/60 pt-6">
-                <h3 className="text-xl font-semibold text-ice-100">{pillar.title}</h3>
+                <h3 className="text-xl text-ice-100">{pillar.title}</h3>
                 <p className="mt-3 leading-relaxed text-ice-400">{pillar.body}</p>
               </div>
             </Reveal>
@@ -68,8 +68,8 @@ export function Sponsors() {
               </span>
               what you can put your name on
             </p>
-            <h3 className="mt-5 max-w-2xl text-2xl font-semibold tracking-tight text-ice-100 sm:text-3xl">
-              Own a moment builders remember —{" "}
+            <h3 className="mt-5 max-w-2xl text-2xl text-ice-100 sm:text-3xl">
+              Own a moment builders remember,{" "}
               <span className="serif-accent text-ice-300">not a banner they forget.</span>
             </h3>
           </Reveal>
@@ -88,7 +88,7 @@ export function Sponsors() {
                 }}
               >
                 <TiltCard className="glass group h-full rounded-lg px-6 py-6">
-                  <span className="block font-medium text-ice-200 transition-colors group-hover:text-ice-100">
+                  <span className="block text-ice-200 transition-colors group-hover:text-ice-100">
                     {name}
                   </span>
                   <span className="mono-label mt-2 block normal-case tracking-normal text-ice-500 transition-colors group-hover:text-cyan-soft">
@@ -100,7 +100,7 @@ export function Sponsors() {
           </ul>
 
           <p className="mt-8 max-w-xl text-sm text-ice-500">
-            Sponsorship structure is being shaped with early partners —
+            Sponsorship structure is being shaped with early partners,
             conversations are open now.
           </p>
         </div>

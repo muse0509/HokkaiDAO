@@ -1,24 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Lora } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import { AnalyticsBootstrap } from "@/components/AnalyticsBootstrap";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
   weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+  style: "normal",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -65,10 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
-    >
+    <html lang="en" className={lora.variable}>
       <body className="grain antialiased">
         {children}
         <AnalyticsBootstrap />

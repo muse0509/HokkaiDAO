@@ -2,6 +2,7 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import Script from "next/script";
+import { captureAttributionClient } from "@/lib/attribution";
 import {
   ANALYTICS_CONFIGURED,
   GA_ID,
@@ -33,6 +34,9 @@ export function AnalyticsBootstrap() {
   const hydrated = useHydrated();
 
   useEffect(() => {
+    // No server middleware on a static site, maintain the attribution
+    // cookie client-side so the interest form can attach it.
+    captureAttributionClient();
     const attribution = readAttributionCookie();
     if (attribution) {
       track("attribution_cookie_set", {
@@ -88,7 +92,7 @@ export function AnalyticsBootstrap() {
           <div className="mt-3 flex shrink-0 gap-2 sm:mt-0">
             <button
               onClick={() => choose("granted")}
-              className="rounded-md bg-ice-200 px-3 py-1.5 text-sm font-medium text-night-900 transition hover:bg-ice-100"
+              className="rounded-md bg-ice-200 px-3 py-1.5 text-sm text-night-900 transition hover:bg-ice-100"
             >
               Allow
             </button>
