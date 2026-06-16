@@ -1,6 +1,6 @@
-# HokkaiDAO — Landing Page
+# ctsDAO — Landing Page
 
-Production landing page for **HokkaiDAO**, a planned two-week Solana builder
+Production landing page for **ctsDAO**, a planned two-week Solana builder
 retreat in Sapporo, Japan (March 2027). Built with Next.js App Router,
 TypeScript, Tailwind CSS v4, Framer Motion, and Zod.
 

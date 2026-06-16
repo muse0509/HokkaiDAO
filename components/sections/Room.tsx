@@ -56,10 +56,10 @@ function CountUp({
   const shown = reduced || (!inView && display === 0) ? value : display;
 
   return (
-    <div className="border-l hairline pl-5">
+    <div className="border-l border-kojiki/50 pl-5">
       <span
         ref={ref}
-        className="whitespace-nowrap font-mono text-3xl text-ice-100 tabular-nums sm:text-4xl lg:text-5xl"
+        className="num whitespace-nowrap text-3xl font-light text-sumi sm:text-4xl lg:text-5xl"
       >
         {prefix}
         {shown}
@@ -71,7 +71,7 @@ function CountUp({
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="mx-2 cursor-default whitespace-nowrap rounded-full border hairline bg-night-800/70 px-5 py-2.5 font-mono text-sm text-ice-300 transition-colors duration-200 hover:border-cyan-soft/40 hover:text-ice-100">
+    <span className="mx-2 cursor-default whitespace-nowrap rounded-full border border-line bg-washi-raised px-5 py-2.5 font-mono text-sm text-ink-500 transition-colors duration-200 hover:border-sumi/25 hover:text-sumi">
       {children}
     </span>
   );
@@ -79,26 +79,24 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 export function Room() {
   return (
-    <section id="room" className="relative overflow-hidden border-t hairline bg-night-900 py-28 sm:py-36">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+    <section id="room" className="relative flex min-h-svh flex-col justify-center overflow-hidden border-t hairline bg-washi py-24">
+      <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
         <SectionHeading
-          label="The room"
-          sub="who's inside"
           title={
             <>
-              50–100 curated builders.
+              50–100 <span className="accent">curated</span> builders.
               <br />
-              <span className="serif-accent text-ice-300">Not badge scans.</span>
+              <span className="text-ink-400">Not badge scans.</span>
             </>
           }
         />
 
         <div className="mt-12 grid gap-10 md:grid-cols-[3fr_2fr] md:gap-16">
           <Reveal delay={0.1}>
-            <p className="text-lg leading-relaxed text-ice-300">
-              Every seat in the room is application-only. We curate for people
-              who build, fund, design, and write the Solana ecosystem into
-              existence, and who want two weeks of real proximity to do it.
+            <p className="text-lg leading-relaxed text-ink-500">
+              Every seat is application-only. We curate for people who build,
+              fund, design, and write the Solana ecosystem into existence — and
+              want two weeks of real proximity to do it.
             </p>
           </Reveal>
           <Reveal delay={0.2}>

@@ -1,14 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Lora } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import { AnalyticsBootstrap } from "@/components/AnalyticsBootstrap";
 import "./globals.css";
 
-const lora = Lora({
-  variable: "--font-lora",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
-  style: "normal",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
   display: "swap",
 });
 
@@ -18,7 +22,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   alternates: { canonical: "/" },
   keywords: [
-    "HokkaiDAO",
+    "ctsDAO",
     "Solana",
     "builder retreat",
     "hackathon",
@@ -45,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04080f",
+  themeColor: "#f4f1ea",
   width: "device-width",
   initialScale: 1,
 };
@@ -56,8 +60,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={lora.variable}>
-      <body className="grain antialiased">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="antialiased">
         {children}
         <AnalyticsBootstrap />
       </body>

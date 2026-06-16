@@ -30,29 +30,27 @@ const REASONS = [
 
 export function Participants() {
   return (
-    <section id="participants" className="relative border-t hairline bg-night-900 py-28 sm:py-36">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+    <section id="participants" className="relative flex min-h-svh flex-col justify-center border-t hairline bg-washi py-24">
+      <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
         <SectionHeading
-          label="For participants"
-          sub="why builders apply"
           title={
             <>
               Two weeks that{" "}
-              <span className="serif-accent text-cyan-soft">compound.</span>
+              <span className="accent">compound.</span>
             </>
           }
         />
 
-        <div className="mt-16 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((reason, i) => (
             <Reveal key={reason.title} delay={(i % 3) * 0.1}>
-              <div className="flex gap-4">
-                <span aria-hidden="true" className="mt-0.5 shrink-0 text-gold/70">
+              <div className="flex gap-4 border-t border-line pt-6">
+                <span aria-hidden="true" className="mt-0.5 shrink-0 text-kojiki">
                   ✦
                 </span>
                 <div>
-                  <h3 className="text-ice-100">{reason.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ice-400">{reason.body}</p>
+                  <h3 className="text-sumi">{reason.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-500">{reason.body}</p>
                 </div>
               </div>
             </Reveal>
