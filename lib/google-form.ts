@@ -22,7 +22,17 @@
 const GOOGLE_FORM_ACTION =
   "https://docs.google.com/forms/d/e/1FAIpQLSdGYrlsohyd7cr1kSLMXeneDFY_FcYJyA-8BEjSXhTmgjge5w/formResponse";
 
-/** Maps each app field to its Google Form `entry.NNN` id. */
+/**
+ * Maps each app field to its Google Form `entry.NNN` id.
+ *
+ * Multi-select fields (role, interest_type) are sent as one comma-separated
+ * string, so their Google Form questions should be **short-answer / paragraph**
+ * (not single-choice), otherwise unmatched values are rejected.
+ *
+ * Fields marked `entry.REPLACE_*` are new questions that don't exist in the
+ * Google Form yet. They are silently skipped on submit until you add the
+ * question and paste its real id here — the rest of the form keeps working.
+ */
 export const GOOGLE_FORM_ENTRY_IDS = {
   name: "entry.2123645487",
   email: "entry.1088612587",
@@ -30,35 +40,48 @@ export const GOOGLE_FORM_ENTRY_IDS = {
   role: "entry.1284312230",
   interest_type: "entry.1090788412",
   organization_or_project: "entry.1425261769",
+  github_or_website: "entry.1080664792",
+  wallet_address: "entry.REPLACE_WALLET",
   location: "entry.1333922230",
-  website: "entry.1080664792",
-  github: "entry.1415407867",
   telegram: "entry.478724343",
-  has_attended_mtndao_or_similar: "entry.236821929",
+  prior_events: "entry.REPLACE_PRIOR_EVENTS",
+  wants_to_help_organize: "entry.REPLACE_HELP_ORGANIZE",
   reason: "entry.1321128930",
   referral_source: "entry.1665304784",
   notes: "entry.334088344",
   attribution: "entry.754212873",
 };
 
-/** True once every placeholder above has been replaced with a real value. */
+/** Core fields that must have real ids for the form to count as wired up.
+ *  Newer optional questions may stay as `entry.REPLACE_*` placeholders. */
+const REQUIRED_ENTRY_FIELDS = [
+  "name",
+  "email",
+  "role",
+  "interest_type",
+  "reason",
+] as const;
+
 export const GOOGLE_FORM_CONFIGURED =
   !GOOGLE_FORM_ACTION.includes("REPLACE") &&
-  !Object.values(GOOGLE_FORM_ENTRY_IDS).some((id) => id.includes("REPLACE"));
+  REQUIRED_ENTRY_FIELDS.every(
+    (field) => !GOOGLE_FORM_ENTRY_IDS[field].includes("REPLACE"),
+  );
 
 export interface GoogleFormPayload {
   name: string;
   email: string;
-  x_handle: string;
-  role: string;
+  role: string[];
   interest_type: string[];
   reason: string;
-  organization_or_project?: string;
-  location?: string;
-  website?: string;
-  github?: string;
+  x_handle?: string;
   telegram?: string;
-  has_attended_mtndao_or_similar?: boolean;
+  organization_or_project?: string;
+  github_or_website?: string;
+  wallet_address?: string;
+  location?: string;
+  prior_events?: string;
+  wants_to_help_organize?: boolean;
   referral_source?: string;
   notes?: string;
   attribution?: Record<string, string> | null;

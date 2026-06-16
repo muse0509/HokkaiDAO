@@ -1,82 +1,89 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionViewTracker } from "@/components/SectionViewTracker";
 import { TrackedLink } from "@/components/TrackedLink";
-import { Magnetic } from "@/components/motion/Magnetic";
+import { FollowX } from "@/components/apply/FollowX";
 
 const ease = [0.21, 0.6, 0.35, 1] as const;
 
+/**
+ * Hero: a small logo, a single tagline, and a restrained pair of CTAs on Washi
+ * White with generous ma. Quiet and premium, but enough to orient and act.
+ */
 export function Hero() {
   const reduced = useReducedMotion();
-  const heroRef = useRef<HTMLElement>(null);
 
   const item = (delay: number) => ({
-    initial: { opacity: 0, y: reduced ? 0 : 28 },
+    initial: { opacity: 0, y: reduced ? 0 : 16 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: reduced ? 0.2 : 0.9, delay, ease },
+    transition: { duration: reduced ? 0.2 : 0.8, delay, ease },
   });
 
   return (
     <header
       id="hero"
-      ref={heroRef}
-      className="relative flex min-h-svh flex-col overflow-hidden bg-night-950"
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-washi px-6 text-center"
     >
       <SectionViewTracker event="hero_view" />
 
-      <div aria-hidden="true" className="hero-backdrop">
-        <div className="hero-aurora" />
-        <div className="hero-horizon-glow" />
-        <div className="hero-mountain hero-mountain-back" />
-        <div className="hero-mountain hero-mountain-mid" />
-        <div className="hero-snow-sheen" />
-        <div className="hero-mountain hero-mountain-front" />
-        <div className="hero-ice-fog" />
-      </div>
+      <motion.div
+        {...item(0.05)}
+        className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]"
+      >
+        <Image
+          src="/ctsdaohero.png"
+          alt="ctsDAO — a winter residency for builders in Japan"
+          width={2092}
+          height={668}
+          priority
+          sizes="(min-width: 768px) 15rem, (min-width: 640px) 13rem, 11rem"
+          className="h-auto w-full select-none"
+        />
+      </motion.div>
+
+      <motion.h1
+        {...item(0.2)}
+        className="mt-10 max-w-2xl text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-[1.2] tracking-[-0.01em] text-sumi"
+      >
+        A winter residency in Japan
+        <br className="hidden sm:block" /> for Solana builders.
+      </motion.h1>
 
       <motion.div
-        {...item(0.15)}
-        className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-6 py-24 text-center sm:px-10"
+        {...item(0.35)}
+        className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
       >
-        <h1
-          className="text-[clamp(4rem,14vw,10rem)] leading-none text-ice-100"
+        <TrackedLink
+          href="/apply"
+          event="interest_cta_clicked"
+          eventProps={{ location: "hero" }}
+          className="group inline-flex min-h-11 items-center gap-2 rounded-sm bg-akane px-6 py-3 text-sm font-medium text-washi transition-colors duration-200 hover:bg-akane-deep"
         >
-          HokkaiDAO
-        </h1>
+          Request an invitation
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-200 group-hover:translate-x-0.5"
+          >
+            →
+          </span>
+        </TrackedLink>
+        <FollowX label="Follow on X" location="hero" />
+      </motion.div>
 
-        <motion.div
-          {...item(0.35)}
-          className="mt-12 flex flex-wrap justify-center gap-4"
-        >
-          <Magnetic>
-            <TrackedLink
-              href="#interest"
-              event="interest_cta_clicked"
-              eventProps={{ location: "hero" }}
-              className="sheen group inline-flex min-h-11 items-center gap-2 rounded-md bg-ice-100 px-6 py-3 text-sm text-night-900 transition duration-200 hover:bg-white hover:shadow-[0_0_40px_rgba(127,216,232,0.35)]"
-            >
-              Join the interest list
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </TrackedLink>
-          </Magnetic>
-          <Magnetic strength={0.18}>
-            <TrackedLink
-              href="#sponsor"
-              event="sponsor_cta_clicked"
-              eventProps={{ location: "hero" }}
-              className="inline-flex min-h-11 items-center gap-2 rounded-md border hairline bg-night-900/40 px-6 py-3 text-sm text-ice-200 backdrop-blur-sm transition duration-200 hover:border-ice-400/40 hover:text-ice-100"
-            >
-              Sponsor / Partner with us
-            </TrackedLink>
-          </Magnetic>
-        </motion.div>
+      <motion.p {...item(0.5)} className="mt-10 text-sm text-ink-400">
+        Sapporo · Hokkaido · March 2027
+      </motion.p>
+
+      {/* Quiet scroll cue. */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-10 flex justify-center"
+        animate={reduced ? undefined : { opacity: [0.3, 1, 0.3] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <span className="h-10 w-px bg-ink-400/40" />
       </motion.div>
     </header>
   );

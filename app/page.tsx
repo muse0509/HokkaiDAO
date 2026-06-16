@@ -1,13 +1,13 @@
 import { siteConfig, xProfileUrl } from "@/lib/site";
 import { Hero } from "@/components/sections/Hero";
-import { ScrollNav } from "@/components/ScrollNav";
+import { TopNav } from "@/components/TopNav";
 import { Concept } from "@/components/sections/Concept";
 import { Format } from "@/components/sections/Format";
 import { Room } from "@/components/sections/Room";
 import { Sponsors } from "@/components/sections/Sponsors";
 import { Participants } from "@/components/sections/Participants";
 import { Status } from "@/components/sections/Status";
-import { InterestForm } from "@/components/sections/InterestForm";
+import { ApplyCta } from "@/components/sections/ApplyCta";
 import { SponsorCta } from "@/components/sections/SponsorCta";
 import { Footer } from "@/components/sections/Footer";
 
@@ -15,17 +15,14 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <ScrollNav />
+      <TopNav />
       <Concept />
       <Format />
       <Room />
       <Sponsors />
       <Participants />
       <Status />
-      <InterestForm
-        formEnabled={siteConfig.formEnabled}
-        fallbackUrl={siteConfig.formFallbackUrl}
-      />
+      <ApplyCta />
       <SponsorCta
         contactEmail={siteConfig.contactEmail}
         contactXHandle={siteConfig.contactXHandle}

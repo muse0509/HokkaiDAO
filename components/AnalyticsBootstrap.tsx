@@ -82,23 +82,23 @@ export function AnalyticsBootstrap() {
         <div
           role="dialog"
           aria-label="Cookie notice"
-          className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-lg border hairline bg-night-800/95 p-4 shadow-2xl backdrop-blur sm:flex sm:items-center sm:gap-4"
+          className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-lg border border-line bg-washi-raised/95 p-4 shadow-lg backdrop-blur sm:flex sm:items-center sm:gap-4"
         >
-          <p className="text-sm text-ice-300">
+          <p className="text-sm text-ink-500">
             We use optional analytics cookies to understand interest in
-            HokkaiDAO. First-party attribution for the interest form works
+            ctsDAO. First-party attribution for the interest form works
             either way.
           </p>
           <div className="mt-3 flex shrink-0 gap-2 sm:mt-0">
             <button
               onClick={() => choose("granted")}
-              className="rounded-md bg-ice-200 px-3 py-1.5 text-sm text-night-900 transition hover:bg-ice-100"
+              className="rounded-sm bg-akane px-3 py-1.5 text-sm font-medium text-washi transition-colors hover:bg-akane-deep"
             >
               Allow
             </button>
             <button
               onClick={() => choose("denied")}
-              className="rounded-md border hairline px-3 py-1.5 text-sm text-ice-300 transition hover:text-ice-100"
+              className="rounded-sm border border-line px-3 py-1.5 text-sm text-ink-500 transition-colors hover:text-sumi"
             >
               Decline
             </button>

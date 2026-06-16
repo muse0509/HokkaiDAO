@@ -1,4 +1,4 @@
-# Deploy — HokkaiDAO LP
+# Deploy — ctsDAO LP
 
 Fully static site (`output: "export"`), hosted on **Cloudflare Pages**. There is
 no server and no database: the interest form posts directly to a **Google Form**
