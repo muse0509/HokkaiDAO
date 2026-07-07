@@ -47,7 +47,7 @@ export function Sponsors() {
         <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-line">
           {PILLARS.map((pillar, i) => (
             <Reveal key={pillar.title} delay={i * 0.12}>
-              <div className="border-t border-kojiki pt-6 md:px-8 md:first:pl-0 md:last:pr-0">
+              <div className="border-t border-kojiki pt-6 md:px-10 lg:px-14">
                 <h3 className="text-xl text-sumi">{pillar.title}</h3>
                 <p className="mt-3 leading-relaxed text-ink-500">{pillar.body}</p>
               </div>

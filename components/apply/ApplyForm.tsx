@@ -166,6 +166,12 @@ const raw = {
   role: roles,
   interest_type: interestTypes,
   reason: text("reason"),
+  full_commitment: text("full_commitment"),
+  working_style: text("working_style"),
+  work_plan: text("work_plan"),
+  accommodation_or_grant_needs: text("accommodation_or_grant_needs") || undefined,
+  dietary_or_special_requirements:
+    text("dietary_or_special_requirements") || undefined,
   x_handle: text("x_handle") || undefined,
   telegram: text("telegram") || undefined,
   organization_or_project: text("organization_or_project") || undefined,
@@ -334,14 +340,69 @@ return ( <div className="relative"> <SectionViewTracker event="form_view" />
 
           <FormSection label="What you'd work on">
             <Field
-              label="Why do you want to be in the room?"
+              label="Why do you belong in the room?"
               name="reason"
               required
               error={errors.reason}
-              hint="What you're building, what you'd work on, or why this matters to you."
+              hint="Tell us what you can bring to the room, what you're building, and why you should be there."
             >
-              <textarea {...inputProps("reason")} rows={4} placeholder="I'm building…" />
+              <textarea
+                {...inputProps("reason")}
+                rows={4}
+                placeholder="I'm building…, and I can contribute by…"
+              />
             </Field>
+            <div className="grid gap-6 sm:grid-cols-2">
+            <Field
+              label="Can you commit to the full two weeks?"
+              name="full_commitment"
+              required
+              error={errors.full_commitment}
+              hint="We prioritize people who can be present for the full residency."
+            >
+              <select {...inputProps("full_commitment")} defaultValue="">
+                <option value="" disabled>
+                  Select one
+                </option>
+                <option value="yes">Yes, I can commit to the full two weeks</option>
+                <option value="mostly">Mostly, but I may miss a small part</option>
+                <option value="no">No, I can only attend partially</option>
+                <option value="not_applicable">Not applicable</option>
+              </select>
+            </Field>
+
+            <Field
+              label="Will you work solo or with a team?"
+              name="working_style"
+              required
+              error={errors.working_style}
+            >
+              <select {...inputProps("working_style")} defaultValue="">
+                <option value="" disabled>
+                  Select one
+                </option>
+                <option value="solo">Solo</option>
+                <option value="team">With an existing team</option>
+                <option value="open_to_team">Open to forming a team there</option>
+                <option value="not_sure">Not sure yet</option>
+                <option value="not_applicable">Not applicable</option>
+              </select>
+            </Field>
+          </div>
+
+          <Field
+            label="What do you plan to ship during ctsDAO?"
+            name="work_plan"
+            required
+            error={errors.work_plan}
+            hint="Existing project, new project, feature, demo, research, or contribution you want to complete."
+          >
+            <textarea
+              {...inputProps("work_plan")}
+              rows={4}
+              placeholder="I plan to work on… By the end of the residency, I want to ship…"
+            />
+          </Field>
             <Field
               label="Which builder events or residencies have you attended, and when?"
               name="prior_events"
@@ -372,6 +433,36 @@ return ( <div className="relative"> <SectionViewTracker event="form_view" />
             <Field label="How did you hear about ctsDAO?" name="referral_source" error={errors.referral_source}>
               <input {...inputProps("referral_source")} type="text" />
             </Field>
+          </FormSection>
+
+          <FormSection label="Practical details">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Field
+                label="Do you need help with accommodation or grants?"
+                name="accommodation_or_grant_needs"
+                error={errors.accommodation_or_grant_needs}
+                hint="Optional. This helps us understand support needs."
+              >
+                <textarea
+                  {...inputProps("accommodation_or_grant_needs")}
+                  rows={3}
+                  placeholder="I may need help finding accommodation / travel support / grant support…"
+                />
+              </Field>
+
+              <Field
+                label="Dietary restrictions or special requirements"
+                name="dietary_or_special_requirements"
+                error={errors.dietary_or_special_requirements}
+                hint="Optional. Food, accessibility, health, or other practical needs."
+              >
+                <textarea
+                  {...inputProps("dietary_or_special_requirements")}
+                  rows={3}
+                  placeholder="Vegetarian, allergies, accessibility needs, etc."
+                />
+              </Field>
+            </div>
           </FormSection>
 
           <FormSection label="Anything else">
