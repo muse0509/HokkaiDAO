@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { getConsent, readAttributionCookie, track } from "@/lib/analytics";
 import { INTEREST_TYPES, ROLES, interestFormSchema } from "@/lib/validation";
-import { GOOGLE_FORM_CONFIGURED, submitToGoogleForm } from "@/lib/google-form";
+import { GAS_CONFIGURED, submitToGAS } from "@/lib/gas-form";
 import { SectionViewTracker } from "@/components/SectionViewTracker";
 
 type FieldErrors = Record<string, string>;
@@ -207,7 +207,7 @@ if (parsed.data.company_website) {
   return;
 }
 
-if (!GOOGLE_FORM_CONFIGURED) {
+if (!GAS_CONFIGURED) {
   setStatus("error");
   setGlobalError(
     "The form isn't connected yet. Please reach out via the contact links below.",
@@ -222,7 +222,7 @@ void _honeypot;
 void _consent;
 
 try {
-  await submitToGoogleForm({
+  await submitToGAS({
     ...fields,
     attribution: readAttributionCookie(),
   });
