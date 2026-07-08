@@ -4,22 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { Marquee } from "@/components/motion/Marquee";
 
-const PROFILES_A = [
-  "protocol engineers",
-  "founders",
-  "designers",
-  "DevRel",
-  "DAO operators",
-];
-
-const PROFILES_B = [
-  "researchers",
-  "hackers",
-  "angels & VCs",
-  "ecosystem funds",
-  "writers & creators",
+const PROFILES = [
+  { text: "Protocol engineers", muted: false },
+  { text: "Founders", muted: true },
+  { text: "Designers & DevRel", muted: false },
+  { text: "DAO operators", muted: true },
+  { text: "Researchers", muted: false },
+  { text: "Angels & VCs", muted: true },
+  { text: "Writers & creators", muted: false },
 ];
 
 const STATS = [
@@ -69,17 +62,10 @@ function CountUp({
   );
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="mx-2 cursor-default whitespace-nowrap rounded-full border border-line bg-washi-raised px-5 py-2.5 font-mono text-sm text-ink-500 transition-colors duration-200 hover:border-sumi/25 hover:text-sumi">
-      {children}
-    </span>
-  );
-}
 
 export function Room() {
   return (
-    <section id="room" className="relative flex min-h-svh flex-col justify-center overflow-hidden border-t hairline bg-washi py-24">
+    <section id="room" className="relative flex min-h-svh flex-col justify-center border-t hairline bg-washi py-24">
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
         <SectionHeading
           title={
@@ -109,21 +95,20 @@ export function Room() {
         </div>
       </div>
 
-      {/* profile chips drift in opposite directions, edge-faded */}
-      <div
-        className="mt-16 space-y-4 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]"
-        aria-label="Builder profiles"
-      >
-        <Marquee duration={36}>
-          {PROFILES_A.map((profile) => (
-            <Chip key={profile}>{profile}</Chip>
-          ))}
-        </Marquee>
-        <Marquee duration={44} className="[&_.marquee-track]:[animation-direction:reverse]">
-          {PROFILES_B.map((profile) => (
-            <Chip key={profile}>{profile}</Chip>
-          ))}
-        </Marquee>
+      <div className="mt-20 border-t border-line" aria-label="Builder profiles">
+        {PROFILES.map((profile, i) => (
+          <Reveal key={profile.text} delay={i * 0.06}>
+            <div className="mx-auto w-full max-w-6xl border-b border-line px-6 py-6 sm:px-10">
+              <p
+                className={`text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-none tracking-[-0.02em] ${
+                  profile.muted ? "text-ink-400" : "text-sumi"
+                }`}
+              >
+                {profile.text}.
+              </p>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

@@ -44,7 +44,7 @@ export function Format() {
         <div className="mt-20 grid divide-y divide-line border-t border-line md:grid-cols-3 md:divide-x md:divide-y-0">
           {PHASES.map((phase, i) => (
             <Reveal key={phase.word} delay={i * 0.1}>
-              <article className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
+              <article className="py-12 md:px-12 md:py-10 lg:px-20">
                 <p className="mono-label text-kojiki">{phase.days}</p>
                 <h3 className="mt-3 text-4xl font-light tracking-[-0.02em] text-sumi">
                   {phase.word}

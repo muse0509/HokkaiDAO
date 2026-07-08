@@ -66,6 +66,18 @@ export const interestFormSchema = z.object({
   reason: sanitized(2000).pipe(
     z.string().min(20, "Tell us a little more, at least 20 characters"),
   ),
+  full_commitment: z.enum(["yes", "mostly", "no", "not_applicable"], {
+    message: "Please select one.",
+  }),
+  working_style: z.enum(
+    ["solo", "team", "open_to_team", "not_sure", "not_applicable"],
+    { message: "Please select one." },
+  ),
+  work_plan: sanitized(1200).pipe(
+    z.string().min(20, "Please share what you plan to work on."),
+  ),
+  accommodation_or_grant_needs: optionalSanitized(800),
+  dietary_or_special_requirements: optionalSanitized(800),
   // Recommended but optional.
   x_handle: optionalXHandle,
   telegram: optionalSanitized(120),

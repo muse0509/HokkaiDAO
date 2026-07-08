@@ -47,6 +47,11 @@ export const GOOGLE_FORM_ENTRY_IDS = {
   prior_events: "entry.REPLACE_PRIOR_EVENTS",
   wants_to_help_organize: "entry.REPLACE_HELP_ORGANIZE",
   reason: "entry.1321128930",
+  full_commitment: "entry.REPLACE_FULL_COMMITMENT",
+  working_style: "entry.REPLACE_WORKING_STYLE",
+  work_plan: "entry.REPLACE_WORK_PLAN",
+  accommodation_or_grant_needs: "entry.REPLACE_ACCOMMODATION_OR_GRANT",
+  dietary_or_special_requirements: "entry.REPLACE_DIETARY_OR_SPECIAL",
   referral_source: "entry.1665304784",
   notes: "entry.334088344",
   attribution: "entry.754212873",
@@ -74,6 +79,11 @@ export interface GoogleFormPayload {
   role: string[];
   interest_type: string[];
   reason: string;
+  full_commitment: string;
+  working_style: string;
+  work_plan: string;
+  accommodation_or_grant_needs?: string;
+  dietary_or_special_requirements?: string;
   x_handle?: string;
   telegram?: string;
   organization_or_project?: string;

@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   // external Google Form from the browser.
   output: "export",
   images: { unoptimized: true },
+  turbopack: {
+    // pnpm-lock.yaml in home dir causes Turbopack to pick the wrong workspace root
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
