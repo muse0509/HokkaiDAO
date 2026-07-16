@@ -16,18 +16,20 @@ const PROFILES = [
 ];
 
 const STATS = [
-  { value: 100, prefix: "50–", label: "curated builders" },
-  { value: 14, prefix: "", label: "days in one room" },
-  { value: 1, prefix: "", label: "demo day" },
+  { value: 100, prefix: "", suffix: "+", label: "curated builders" },
+  { value: 14, prefix: "", suffix: "", label: "days in one room" },
+  { value: 1, prefix: "", suffix: "", label: "demo day" },
 ];
 
 function CountUp({
   value,
   prefix,
+  suffix,
   label,
 }: {
   value: number;
   prefix: string;
+  suffix: string;
   label: string;
 }) {
   const reduced = useReducedMotion();
@@ -56,6 +58,7 @@ function CountUp({
       >
         {prefix}
         {shown}
+        {suffix}
       </span>
       <p className="mono-label mt-2">{label}</p>
     </div>
@@ -70,7 +73,7 @@ export function Room() {
         <SectionHeading
           title={
             <>
-              50–100 <span className="accent">curated</span> builders.
+              100+ <span className="accent">curated</span> builders.
               <br />
               <span className="text-ink-400">Not badge scans.</span>
             </>

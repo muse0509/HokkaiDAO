@@ -10,7 +10,7 @@ export const siteConfig = {
   name: "ctsDAO",
   title: "ctsDAO — A Winter Residency for Builders in Japan",
   description:
-    "A two-week Solana builder residency in Sapporo, Japan. Quiet, focused, application-only. Work, powder, and demo with 50–100 curated builders in March 2027.",
+    "A two-week Solana builder residency in Sapporo, Japan. Quiet, focused, application-only. Work, powder, and demo with 100+ curated builders in March 2027.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
   contactEmail: process.env.CONTACT_EMAIL || "hokkai_dao@proton.me",
   contactXHandle: X_HANDLE,

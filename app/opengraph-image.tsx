@@ -77,7 +77,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>APPLICATION-ONLY</span>
-          <span style={{ color: "#d9a441" }}>50–100 BUILDERS</span>
+          <span style={{ color: "#d9a441" }}>100+ BUILDERS</span>
         </div>
       </div>
     ),

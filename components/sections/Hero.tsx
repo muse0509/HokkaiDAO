@@ -49,7 +49,7 @@ export function Hero() {
           transition={{ duration: 1.5, ease: cinematicEase, delay: 0.6 }}
           className="text-lg md:text-xl font-normal text-[#F4F1EA]/80 tracking-wide leading-relaxed"
         >
-          50-100 curated builders.
+          100+ curated builders.
           Every seat is application-only.<br />
           The work, not the noise.
         </motion.p>
